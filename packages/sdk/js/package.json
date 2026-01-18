@@ -1,9 +1,15 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@opencode-ai/sdk",
-  "version": "1.1.25",
+  "name": "@codepro-ai/sdk",
+  "version": "1.0.0",
+  "description": "SDK for CodePro AI",
   "type": "module",
   "license": "MIT",
+  "author": "Rafael Martinez",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alemart87/codepro.git"
+  },
   "scripts": {
     "typecheck": "tsgo --noEmit",
     "build": "./script/build.ts"
@@ -21,10 +27,10 @@
   ],
   "devDependencies": {
     "@hey-api/openapi-ts": "0.90.4",
-    "@tsconfig/node22": "catalog:",
-    "@types/node": "catalog:",
-    "typescript": "catalog:",
-    "@typescript/native-preview": "catalog:"
+    "@tsconfig/node22": "22.0.2",
+    "@types/node": "22.13.9",
+    "typescript": "5.8.2",
+    "@typescript/native-preview": "7.0.0-dev.20251207.1"
   },
   "dependencies": {},
   "publishConfig": {

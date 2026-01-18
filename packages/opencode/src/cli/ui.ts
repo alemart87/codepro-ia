@@ -1,13 +1,17 @@
 import z from "zod"
 import { EOL } from "os"
-import { NamedError } from "@opencode-ai/util/error"
+import { NamedError } from "@codepro-ai/util/error"
 
 export namespace UI {
   const LOGO = [
-    [`                    `, `             ▄     `],
-    [`█▀▀█ █▀▀█ █▀▀█ █▀▀▄ `, `█▀▀▀ █▀▀█ █▀▀█ █▀▀█`],
-    [`█░░█ █░░█ █▀▀▀ █░░█ `, `█░░░ █░░█ █░░█ █▀▀▀`],
-    [`▀▀▀▀ █▀▀▀ ▀▀▀▀ ▀  ▀ `, `▀▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀`],
+    [`      o   o    `, ` .d8888b.   .d88b.  8888888b.  8888888888 8888888b.  8888888b.   .d88b.  `],
+    [`       \\_/     `, `d88P  Y88b d88""88b 888  "Y88b 888        888   Y88b 888   Y88b d88""88b `],
+    [`      (o o)    `, `888    888 888  888 888    888 888        888    888 888    888 888  888 `],
+    [`     (  v  )   `, `888        888  888 888    888 8888888    888   d88P 888   d88P 888  888 `],
+    [`      \\   /    `, `888        888  888 888    888 888        8888888P"  8888888P"  888  888 `],
+    [`      |   |    `, `888    888 888  888 888    888 888        888        888 T88b   888  888 `],
+    [`      | O |    `, `Y88b  d88P Y88..88P 888  .d88P 888        888        888  T88b  Y88..88P `],
+    [`      |   |    `, ` "Y8888P"   "Y88P"  8888888P"  8888888888 888        888   T88b  "Y88P"  `],
   ]
 
   export const CancelledError = NamedError.create("UICancelledError", z.void())

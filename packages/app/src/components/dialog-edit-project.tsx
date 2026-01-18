@@ -1,14 +1,14 @@
-import { Button } from "@opencode-ai/ui/button"
-import { useDialog } from "@opencode-ai/ui/context/dialog"
-import { Dialog } from "@opencode-ai/ui/dialog"
-import { TextField } from "@opencode-ai/ui/text-field"
-import { Icon } from "@opencode-ai/ui/icon"
+import { Button } from "@codepro-ai/ui/button"
+import { useDialog } from "@codepro-ai/ui/context/dialog"
+import { Dialog } from "@codepro-ai/ui/dialog"
+import { TextField } from "@codepro-ai/ui/text-field"
+import { Icon } from "@codepro-ai/ui/icon"
 import { createMemo, createSignal, For, Show } from "solid-js"
 import { createStore } from "solid-js/store"
 import { useGlobalSDK } from "@/context/global-sdk"
 import { type LocalProject, getAvatarColors } from "@/context/layout"
-import { getFilename } from "@opencode-ai/util/path"
-import { Avatar } from "@opencode-ai/ui/avatar"
+import { getFilename } from "@codepro-ai/util/path"
+import { Avatar } from "@codepro-ai/ui/avatar"
 
 const AVATAR_COLOR_KEYS = ["pink", "mint", "orange", "purple", "cyan", "lime"] as const
 

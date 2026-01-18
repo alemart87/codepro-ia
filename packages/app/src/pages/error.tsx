@@ -1,10 +1,10 @@
-import { TextField } from "@opencode-ai/ui/text-field"
-import { Logo } from "@opencode-ai/ui/logo"
-import { Button } from "@opencode-ai/ui/button"
+import { TextField } from "@codepro-ai/ui/text-field"
+import { Logo } from "@codepro-ai/ui/logo"
+import { Button } from "@codepro-ai/ui/button"
 import { Component, Show } from "solid-js"
 import { createStore } from "solid-js/store"
 import { usePlatform } from "@/context/platform"
-import { Icon } from "@opencode-ai/ui/icon"
+import { Icon } from "@codepro-ai/ui/icon"
 
 export type InitError = {
   name: string

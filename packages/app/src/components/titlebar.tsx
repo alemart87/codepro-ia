@@ -1,7 +1,7 @@
 import { createEffect, createMemo, Show } from "solid-js"
-import { IconButton } from "@opencode-ai/ui/icon-button"
-import { TooltipKeybind } from "@opencode-ai/ui/tooltip"
-import { useTheme } from "@opencode-ai/ui/theme"
+import { IconButton } from "@codepro-ai/ui/icon-button"
+import { TooltipKeybind } from "@codepro-ai/ui/tooltip"
+import { useTheme } from "@codepro-ai/ui/theme"
 
 import { useLayout } from "@/context/layout"
 import { usePlatform } from "@/context/platform"

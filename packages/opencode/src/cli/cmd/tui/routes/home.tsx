@@ -131,7 +131,8 @@ export function Home() {
           </Show>
         </box>
         <box flexGrow={1} />
-        <box flexShrink={0}>
+        <box flexDirection="row" flexShrink={0} gap={2}>
+          <text fg={theme.textMuted}>Forkeado por Rafael Martínez</text>
           <text fg={theme.textMuted}>{Installation.VERSION}</text>
         </box>
       </box>
