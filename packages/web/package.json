@@ -34,7 +34,7 @@
     "toolbeam-docs-theme": "0.4.8"
   },
   "devDependencies": {
-    "codepro": "workspace:*",
+    "codepro-ia": "workspace:*",
     "@types/node": "catalog:",
     "typescript": "catalog:"
   }
