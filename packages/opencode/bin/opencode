@@ -1,84 +1,75 @@
 #!/usr/bin/env node
 
-const childProcess = require("child_process")
-const fs = require("fs")
-const path = require("path")
-const os = require("os")
+import { spawn } from "child_process";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+import { existsSync } from "fs";
+import { platform, arch } from "os";
 
-function run(target) {
-  const result = childProcess.spawnSync(target, process.argv.slice(2), {
-    stdio: "inherit",
-  })
-  if (result.error) {
-    console.error(result.error.message)
-    process.exit(1)
-  }
-  const code = typeof result.status === "number" ? result.status : 0
-  process.exit(code)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Check for custom binary path
+const envPath = process.env.CODEPRO_BIN_PATH;
+if (envPath && existsSync(envPath)) {
+  run(envPath);
 }
 
-const envPath = process.env.OPENCODE_BIN_PATH
-if (envPath) {
-  run(envPath)
-}
-
-const scriptPath = fs.realpathSync(__filename)
-const scriptDir = path.dirname(scriptPath)
-
+// Platform and architecture mapping
 const platformMap = {
   darwin: "darwin",
   linux: "linux",
   win32: "windows",
-}
+};
+
 const archMap = {
   x64: "x64",
   arm64: "arm64",
-  arm: "arm",
+};
+
+const currentPlatform = platformMap[platform()] || platform();
+const currentArch = archMap[arch()] || arch();
+
+// Try to find prebuilt binary
+const binaryName = currentPlatform === "windows" ? "opencode.exe" : "opencode";
+const localBinary = join(__dirname, binaryName);
+
+if (existsSync(localBinary)) {
+  run(localBinary);
+} else {
+  console.log(`
+╔══════════════════════════════════════════════════════════════════╗
+║                     🦒 CodePro IA                                 ║
+║                                                                   ║
+║  Binaries not yet available via npm.                              ║
+║                                                                   ║
+║  To run CodePro IA, use one of these methods:                     ║
+║                                                                   ║
+║  1. Clone and run with Bun:                                       ║
+║     git clone https://github.com/alemart87/codepro-ia             ║
+║     cd codepro-ia                                                 ║
+║     bun install                                                   ║
+║     bun dev                                                       ║
+║                                                                   ║
+║  2. Or install Bun globally:                                      ║
+║     npm install -g bun                                            ║
+║                                                                   ║
+╚══════════════════════════════════════════════════════════════════╝
+`);
+  process.exit(0);
 }
 
-let platform = platformMap[os.platform()]
-if (!platform) {
-  platform = os.platform()
-}
-let arch = archMap[os.arch()]
-if (!arch) {
-  arch = os.arch()
-}
-const base = "opencode-" + platform + "-" + arch
-const binary = platform === "windows" ? "opencode.exe" : "opencode"
+function run(target) {
+  const child = spawn(target, process.argv.slice(2), {
+    stdio: "inherit",
+  });
 
-function findBinary(startDir) {
-  let current = startDir
-  for (;;) {
-    const modules = path.join(current, "node_modules")
-    if (fs.existsSync(modules)) {
-      const entries = fs.readdirSync(modules)
-      for (const entry of entries) {
-        if (!entry.startsWith(base)) {
-          continue
-        }
-        const candidate = path.join(modules, entry, "bin", binary)
-        if (fs.existsSync(candidate)) {
-          return candidate
-        }
-      }
-    }
-    const parent = path.dirname(current)
-    if (parent === current) {
-      return
-    }
-    current = parent
-  }
-}
+  child.on("error", (err) => {
+    console.error("Error:", err.message);
+    process.exit(1);
+  });
 
-const resolved = findBinary(scriptDir)
-if (!resolved) {
-  console.error(
-    'It seems that your package manager failed to install the right version of the opencode CLI for your platform. You can try manually installing the "' +
-      base +
-      '" package',
-  )
-  process.exit(1)
+  child.on("close", (code) => {
+    process.exit(code || 0);
+  });
 }
-
-run(resolved)
